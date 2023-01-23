@@ -15,6 +15,7 @@ namespace tienda.Controllers
             var lista = await productos.MostrarProductos();
             return lista;
         }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Mproducto?>> GetProducto(int id)
         {
@@ -30,7 +31,15 @@ namespace tienda.Controllers
             
             
         }
-        
+
+        [HttpPost]
+        public async Task<ActionResult> Post([FromBody] Mproducto parametros)
+        {
+            var productos = new Dproductos();
+            await productos.InsertarProductos(parametros);
+            return Ok(parametros);
+        }
+
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, [FromBody] Mproducto parametros)
         {
@@ -41,18 +50,6 @@ namespace tienda.Controllers
 
 
         }
-
-
-
-        [HttpPost]
-        public async Task<ActionResult> Post([FromBody] Mproducto parametros)
-        {
-            var productos = new Dproductos();
-            await productos.InsertarProductos(parametros);
-            return Ok(parametros);
-        }
-
-      
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
